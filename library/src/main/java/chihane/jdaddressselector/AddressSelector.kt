@@ -16,6 +16,7 @@ import chihane.jdaddressselector.model.County
 import chihane.jdaddressselector.model.Province
 import mlxy.utils.Lists
 
+
 class AddressSelector(private val context: Context) : AdapterView.OnItemClickListener {
 
     private val handler = Handler(Handler.Callback { msg ->
@@ -46,8 +47,9 @@ class AddressSelector(private val context: Context) : AdapterView.OnItemClickLis
                 if (Lists.notEmpty(counties)) {
                     listView!!.adapter = countyAdapter
                     tabIndex = INDEX_TAB_COUNTY
+                } else {
+                    callbackInternal()
                 }
-                callbackInternal()
 
             }
 
@@ -259,6 +261,8 @@ class AddressSelector(private val context: Context) : AdapterView.OnItemClickLis
                 this.countyIndex = position
 
                 countyAdapter!!.notifyDataSetChanged()
+
+                callbackInternal()
 
             }
 
