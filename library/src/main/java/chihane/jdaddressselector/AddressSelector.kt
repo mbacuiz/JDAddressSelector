@@ -46,9 +46,9 @@ class AddressSelector(private val context: Context) : AdapterView.OnItemClickLis
                 if (Lists.notEmpty(counties)) {
                     listView!!.adapter = countyAdapter
                     tabIndex = INDEX_TAB_COUNTY
-                } else {
-                    callbackInternal()
                 }
+                callbackInternal()
+
             }
 
         }
