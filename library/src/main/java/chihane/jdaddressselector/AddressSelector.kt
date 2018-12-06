@@ -305,7 +305,9 @@ class AddressSelector(private val context: Context) : AdapterView.OnItemClickLis
 
                 countyAdapter!!.notifyDataSetChanged()
 
-                callbackInternal()
+                if (defCountyCode == -1) {
+                    callbackInternal()
+                }
 
             }
 
