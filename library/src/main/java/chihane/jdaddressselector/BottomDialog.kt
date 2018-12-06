@@ -42,6 +42,10 @@ class BottomDialog : Dialog {
         this.selector!!.onAddressSelectedListener = listener
     }
 
+    fun setDef(defCountyCode: Int, defCountyName: String) {
+        selector?.setDef(defCountyCode, defCountyName)
+    }
+
     companion object {
 
         @JvmOverloads

@@ -25,6 +25,21 @@ class AddressSelector(private val context: Context) : AdapterView.OnItemClickLis
                 provinces = msg.obj as List<Province>
                 provinceAdapter!!.notifyDataSetChanged()
                 listView!!.adapter = provinceAdapter
+                if (defCountyCode != -1) {
+                    provinces?.forEachIndexed { provinceIndex, province ->
+                        province.districts.forEachIndexed { cityIndex, city ->
+                            city.districts.forEachIndexed { countyIndex, county ->
+                                if (county.adcode == defCountyCode.toString() && county.name == defCountyName) {
+                                    tabIndex = INDEX_TAB_PROVINCE
+                                    defProvinceIndex = provinceIndex
+                                    defCityIndex = cityIndex
+                                    defCountyIndex = countyIndex
+                                    changeCheck(provinceIndex)
+                                }
+                            }
+                        }
+                    }
+                }
             }
 
             WHAT_CITIES_PROVIDED -> {
@@ -35,10 +50,17 @@ class AddressSelector(private val context: Context) : AdapterView.OnItemClickLis
                     listView!!.adapter = cityAdapter
                     // 更新索引为次级
                     tabIndex = INDEX_TAB_CITY
+
+                    if (defCountyCode != -1) {
+                        tabIndex = INDEX_TAB_CITY
+                        changeCheck(defCityIndex)
+                    }
+
                 } else {
                     // 次级无内容，回调
                     callbackInternal()
                 }
+
             }
 
             WHAT_COUNTIES_PROVIDED -> {
@@ -47,6 +69,12 @@ class AddressSelector(private val context: Context) : AdapterView.OnItemClickLis
                 if (Lists.notEmpty(counties)) {
                     listView!!.adapter = countyAdapter
                     tabIndex = INDEX_TAB_COUNTY
+
+                    if (defCountyCode != -1) {
+                        tabIndex = INDEX_TAB_COUNTY
+                        changeCheck(defCountyIndex)
+                    }
+
                 } else {
                     callbackInternal()
                 }
@@ -61,6 +89,11 @@ class AddressSelector(private val context: Context) : AdapterView.OnItemClickLis
 
         true
     })
+    private var defCountyCode = -1
+    private var defCountyName = ""
+    private var defProvinceIndex: Int = 0
+    private var defCityIndex: Int = 0
+    private var defCountyIndex: Int = 0
     var closeListener: CloseListener? = null
     var onAddressSelectedListener: OnAddressSelectedListener? = null
     private var addressProvider: AddressProvider? = null
@@ -99,6 +132,11 @@ class AddressSelector(private val context: Context) : AdapterView.OnItemClickLis
         initViews()
         initAdapters()
         retrieveProvinces()
+    }
+
+    fun setDef(defCountyCode: Int, defCountyName: String) {
+        this.defCountyCode = defCountyCode
+        this.defCountyName = defCountyName
     }
 
     private fun initAdapters() {
@@ -209,6 +247,11 @@ class AddressSelector(private val context: Context) : AdapterView.OnItemClickLis
     }
 
     override fun onItemClick(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+        defCountyCode = -1
+        changeCheck(position)
+    }
+
+    private fun changeCheck(position: Int) {
         when (tabIndex) {
             INDEX_TAB_PROVINCE -> {
                 val province = provinceAdapter!!.getItem(position)

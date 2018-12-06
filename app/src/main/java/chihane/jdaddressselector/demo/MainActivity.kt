@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity(), OnAddressSelectedListener {
 
         val selector = AddressSelector(this)
         selector.onAddressSelectedListener = this
+        selector.setDef(410922,"清丰县")
         //        selector.setAddressProvider(new TestAddressProvider());
 
         assert(frameLayout != null)
@@ -34,6 +35,7 @@ class MainActivity : AppCompatActivity(), OnAddressSelectedListener {
             //                BottomDialog.show(MainActivity.this, MainActivity.this);
             val dialog = BottomDialog(this@MainActivity)
             dialog.setOnAddressSelectedListener(this@MainActivity)
+            dialog.setDef(410922,"清县")
             dialog.show()
         }
     }
