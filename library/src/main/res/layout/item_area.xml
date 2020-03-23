@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:padding="15dp">
 
     <TextView
@@ -11,6 +12,8 @@
         android:layout_centerVertical="true"
         android:ellipsize="end"
         android:maxLines="1"
+        tools:enabled="false"
+        tools:text="北京"
         android:textColor="@color/selector_text_color_tab"
         android:textSize="14sp" />
 
@@ -24,7 +27,9 @@
         android:layout_toEndOf="@+id/textView"
         android:layout_toRightOf="@+id/textView"
         android:contentDescription="@string/desc_check_mark"
+        android:tint="@color/colorPrimary"
         android:src="@drawable/ic_check"
-        android:visibility="gone" />
+        android:visibility="gone"
+        tools:visibility="visible" />
 
 </RelativeLayout>

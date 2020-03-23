@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/shape_selector_bg"
     android:orientation="vertical">
 
@@ -16,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:text="配送至"
-            android:textColor="#111111"
+            android:textColor="@color/colorBlack"
             android:textSize="17sp"
             android:textStyle="bold" />
 
@@ -61,16 +62,17 @@
         <View
             android:id="@+id/indicator"
             android:layout_width="0dp"
+            tools:layout_width="100dp"
             android:layout_height="2dp"
             android:layout_below="@+id/layout_tab"
-            android:background="#2066FF" />
+            android:background="@color/colorPrimary" />
 
     </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#e8e8e8" />
+        android:background="@color/colorDivider" />
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -85,6 +87,7 @@
 
         <ProgressBar
             android:id="@+id/progressBar"
+            android:indeterminateTint="@color/colorPrimary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center" />
